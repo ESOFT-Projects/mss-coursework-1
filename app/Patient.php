@@ -10,7 +10,6 @@ class Patient extends Model {
 
     protected $guarded = [];
     //public $timestamps=false;
-    protected $dates = ['dob'];
 
     public function history()
     {
