@@ -85,7 +85,7 @@
 
                     <section class="panel">
                         <header class="panel-heading">
-                            Products in re-order level
+                            Most prescribed medicines in this week
                             <div class="pull-right" style="margin-top:-5px; ">
                                 <form class="form-inline" role="form" style="display:inline;margin-right:0px;">
 
@@ -97,7 +97,7 @@
 
                                     <div class="form-group">
                                         <a type="button" class="btn btn-primary btn-sm m-bot15"
-                                           ng-click="export_product_level_pdf();"><i class='fa fa-print'></i>&nbsp;EXPORT PDF</a>
+                                           ng-click="export_most_prescribed_products();"><i class='fa fa-print'></i>&nbsp;EXPORT PDF</a>
                                     </div>
 
                                 </form>
@@ -108,15 +108,13 @@
                                 <thead>
                                 <td style="text-align:center;">NO</td>
                                 <td style="text-align:center;">Product</td>
-                                <td style="text-align:center;">Re-order level</td>
-                                <td style="text-align:center;">Current quantity</td>
+                                <td style="text-align:center;">Prescriptions count</td>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="product in productsInReorderLevel">
+                                <tr ng-repeat="product in mostPrescribedProducts">
                                     <td style="text-align:center;">@{{$index+1}}</td>
                                     <td style="text-align:center;">@{{product.title}}</td>
-                                    <td style="text-align:center;">@{{product.reorder_level}}</td>
-                                    <td style="text-align:center;">@{{product.units}}</td>
+                                    <td style="text-align:center;">@{{product.prescriptions_count}}</td>
                                 </tr>
                                 </tbody>
                             </table>

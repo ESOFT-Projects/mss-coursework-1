@@ -2407,7 +2407,6 @@ $scope.the_validator = {
 
                      };
 
-
 $scope.$watch('the_runner.symptoms',function(){
 				if($scope.the_runner.symptoms != '' && $scope.the_runner.symptoms.length > 1 ){
 					$scope.the_validator.error_symptoms = false;
@@ -2585,21 +2584,13 @@ $scope.the_runner = { title:'',
 
                      };
 
-
-
-
-
 $scope.appointments = [];
-
 
 $scope.$watch('the_runner.keyword',function(){
 	$scope.read_appointments();
 });
 
-
 $scope.export_pdf=function(){
-
-
 
 
 
@@ -2630,7 +2621,92 @@ $scope.export_pdf=function(){
 
 }
 
+$scope.export_doctor_report_pdf=function(){
 
+        $http({
+            url: 'http://mss.test/export-report-doctor-payment',
+            method: 'GET',
+            data: $scope.the_runner,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", "doctor-payment.pdf");
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+
+    }
+
+$scope.export_product_level_pdf=function(){
+
+        $http({
+            url: 'http://mss.test/export-report-products-level',
+            method: 'GET',
+            data: $scope.the_runner,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", "product-levels.pdf");
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+
+    }
+
+    $scope.export_most_prescribed_products=function(){
+
+        $http({
+            url: 'http://mss.test/export-report-most-prescribed-products',
+            method: 'GET',
+            data: $scope.the_runner,
+            responseType: 'arraybuffer'
+        }).success(function (data) {
+            var linkElement = document.createElement('a');
+            try {
+                var blob = new Blob([data], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+                linkElement.setAttribute('href', url);
+                linkElement.setAttribute("download", "product-levels.pdf");
+                var clickEvent = new MouseEvent("click", {
+                    "view": window,
+                    "bubbles": true,
+                    "cancelable": false
+                });
+                linkElement.dispatchEvent(clickEvent);
+            } catch (ex) {
+                console.log(ex);
+            }
+        }).error(function (data) {
+            console.log(data);
+        });
+
+    }
 
 $scope.read_appointments=function(){
 
@@ -2686,10 +2762,6 @@ $scope.read_appointments=function(){
 
 }
 
-
-
-
-
 $scope.draw = function(data,data2){
 
   Highcharts.chart('containerx', {
@@ -2731,10 +2803,40 @@ tooltip: {
 
 }
 
+// Report - doctor payment
+$scope.read_doctor_payments = function () {
 
+    console.log('Read doctor payment');
 
+        $scope.doctorPayments = [];
+        CRUDAPI.execute('GET', $scope.the_runner, "http://mss.test/report-doctor-payment").then(function (response) {
+
+            console.log(response);
+
+            $scope.doctorPayments = response.data;
+        });
+    }
+
+// Report - Products in re-order level
+$scope.read_products_in_reorder_level = function () {
+        $scope.productsInReorderLevel = [];
+        CRUDAPI.execute('GET', $scope.the_runner, "http://mss.test/report-products-in-reorder-level").then(function (response) {
+            $scope.productsInReorderLevel = response.data;
+        });
+    }
+
+    // Report - Most prescribed products
+    $scope.read_most_prescribed_products = function () {
+        $scope.mostPrescribedProducts = [];
+        CRUDAPI.execute('GET', $scope.the_runner, "http://mss.test/report-most-prescribed-products").then(function (response) {
+            $scope.mostPrescribedProducts = response.data;
+        });
+    }
 
 $scope.read_appointments();
+$scope.read_doctor_payments();
+$scope.read_products_in_reorder_level();
+$scope.read_most_prescribed_products();
 
 });
 
