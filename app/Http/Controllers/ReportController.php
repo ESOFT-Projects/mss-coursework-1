@@ -5,34 +5,19 @@ namespace App\Http\Controllers;
 use App\Doctor;
 use App\SpecializationArea;
 use Illuminate\Http\Request;
-
+use PDF;
 class ReportController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware(['auth:api','cors'])->except('appointmentsForSpecializationAreaReport','export_report_appointment_specialization_area');
+    }
+
+
     public function appointmentsForSpecializationAreaReport(Request $request)
     {
-        $builder = SpecializationArea::withCount(['appointments as active_count' => function($query){
-                                $query->whereNull('cancelled_at');
-                            }])
-                            ->withCount(['appointments as cancelled_count' => function($query){
-                                $query->whereNotNull('cancelled_at');
-                            }]);
 
-        if($request->has('date_from') && $request->has('date_to')){
-            $builder->whereHas('appointments', function($query) use($request){
-                $query->where('date', '>=', $request->date_from);
-                $query->where('date', '<=', $request->date_to);
-            });
-        }else if($request->has('date_from')){
-            $builder->whereHas('appointments', function($query) use($request){
-                $query->where('date', '>=', $request->date_from);
-            });
-        }else if($request->has('date_to')){
-            $builder->whereHas('appointments', function($query) use($request){
-                $query->where('date', '<=', $request->date_to);
-            });
-        }
-
-        $data = $builder->get();
+		$data = $this->getAppointmentsForSpecializationAreaReport($request->date_from, $request->date_to);
 
         return response()->json([
             'status' => 'success',
@@ -62,4 +47,56 @@ class ReportController extends Controller
         ], 200);
 
     }
+
+	private function getAppointmentsForSpecializationAreaReport($dateFrom=null, $dateTo=null, $keyword=null)
+	{
+
+		/*print_r([
+		$dateFrom, $dateTo, $keyword
+		]);*/
+
+		$builder = SpecializationArea::withCount(['appointments as active_count' => function($query){
+                                $query->whereNull('cancelled_at');
+                            }])
+                            ->withCount(['appointments as cancelled_count' => function($query){
+                                $query->whereNotNull('cancelled_at');
+                            }]);
+
+        if($dateFrom && $dateTo){
+            $builder->whereHas('appointments', function($query) use($dateFrom, $dateTo){
+                $query->where('date', '>=', $dateFrom);
+                $query->where('date', '<=', $dateTo);
+            });
+        }else if($dateFrom){
+            $builder->whereHas('appointments', function($query) use($dateFrom, $dateTo){
+                $query->where('date', '>=', $dateFrom);
+            });
+        }else if($dateTo){
+            $builder->whereHas('appointments', function($query) use($dateFrom, $dateTo){
+                $query->where('date', '<=', $dateTo);
+            });
+        }
+
+		if($keyword){
+            $builder->where('area', 'LIKE', "%$keyword");
+        }
+
+        return $builder->get();
+
+	}
+
+
+    public function export_report_appointment_specialization_area(Request $request){
+         $reports =  $this->getAppointmentsForSpecializationAreaReport(null,null,$request->keyword);
+
+		 //$accidents = Accident::where('accident_id',$request->accident_id)->get();
+
+         $pdf = PDF::loadView('pdf-report-appointments', compact('reports'));
+         return $pdf->download("report.pdf");
+
+    }
+
+
+
+
 }

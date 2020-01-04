@@ -28,8 +28,41 @@ class PatientController extends Controller
 {
 
     public function __construct(){
-        $this->middleware(['auth:api','cors'])->except('store','patient_search','specialization_area','doctors','update');
+        $this->middleware(['auth:api','cors'])->except('store','patient_search','specialization_area','doctors','update','cast_patients');
     }
+	
+	
+	
+   public function cast_patients(Request $request){
+ 
+  
+	   	
+	    $patients = Patient::where($request->where_field,'like','%'.$request->keyword.'%')->paginate(5);	
+	  
+
+  
+        foreach($patients as $patient){
+		/*	
+		  $doctor = Doctor::where('doctor_id',$appointment->doctor_id)->first();
+		  $employee = Employee::where('employee_id',$doctor->employee_id)->first();		  
+		  
+		  $timeslot = TimeSlot::where('id',$appointment->time_slot_id)->first();
+		  $appointment->timeslot_start = $timeslot->start_at;
+		  $appointment->timeslot_end = $timeslot->end_at;
+		  
+		  $appointment->doctor_name =  $employee->first_name.' '.$employee->last_name;
+		  $patient = Patient::where('patient_id',$appointment->patient_id)->first();
+		  $appointment->patient =  $patient;	*/	  
+		  
+		}
+ 
+ 
+		
+	    echo json_encode($patients); 
+  
+    }		
+	
+	
 
 
 public function patient_search(Request $request){

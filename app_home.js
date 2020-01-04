@@ -138,7 +138,7 @@ app.service('AUTHTOKEN',function($http,$q){
 	payload.append('password',password);	
 	
     $http({
-      url: 'http://123.231.52.110/asceso/oauth/token',
+      url: 'http://mss.test/oauth/token',
       method: 'POST',
       data: payload,
       headers: { 'Content-Type': undefined},
@@ -167,7 +167,7 @@ app.service('AUTHCLIENT',function($http,$q){
 		'password':password
 	}
     $http({
-      url: 'http://123.231.52.110/asceso/oauth-client-me',
+      url: 'http://mss.test/oauth-client-me',
       method: 'POST',
       data: datax,
       headers: { 'Content-Type': 'application/json'},      
@@ -326,7 +326,7 @@ $scope.expect_token=function(e){
     for(property in $scope.the_runner){
 	  payload.append(property,JSON.stringify($scope.the_runner[property]));
     }		
-    CRUDAPI2.execute('GET',payload,"http://123.231.52.110/asceso/api/users").then(function(response){       	    
+    CRUDAPI2.execute('GET',payload,"http://mss.test/api/users").then(function(response){       	    
 	   if($scope.the_runner.username == response.email){
 		 document.getElementById('login-form').submit();   
 	   }else{
@@ -491,7 +491,7 @@ $scope.read_users=function(){
 
     $scope.users=[];
  
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/cast-users?page="+$scope.the_paginate.pageNumber).then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/cast-users?page="+$scope.the_paginate.pageNumber).then(function(response){
       $scope.users     = response.data;
 	  
       $scope.the_paginate.totalPages   = response.last_page;
@@ -580,7 +580,7 @@ $scope.read_pages=function(user){
     for(property in $scope.the_runner){
 	  payload.append(property,JSON.stringify($scope.the_runner[property]));
     }
-    CRUD.execute('POST',payload,"http://123.231.52.110/asceso/read-pages").then(function(response){
+    CRUD.execute('POST',payload,"http://mss.test/read-pages").then(function(response){
         $scope.pages = response;
 		console.log($scope.pages);
 		$scope.pages_selected = [];
@@ -615,7 +615,7 @@ $scope.save=function(){
 
 
 	
-    CRUD.execute('POST',payload,"http://123.231.52.110/asceso/api/users").then(function(response){       
+    CRUD.execute('POST',payload,"http://mss.test/api/users").then(function(response){       
 	   $scope.the_runner.spinner = false;
        NOTICE.execute('Success',response);	   
     });	
@@ -716,7 +716,7 @@ console.log($scope.pages_selected);
 
 
 $scope.delete=function(user){
-    CRUDAPI.execute('DELETE',$scope.the_runner,"http://123.231.52.110/asceso/api/users/"+user.id).then(function(response){ 
+    CRUDAPI.execute('DELETE',$scope.the_runner,"http://mss.test/api/users/"+user.id).then(function(response){ 
        $scope.read_users();	
        NOTICE.execute('Success',response.returnResponse);	   
     });		 
@@ -726,13 +726,13 @@ $scope.delete=function(user){
 
 /*********************Notices***********************/ 
 $scope.notice_status = function(notice){	    
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/notices/"+notice.notice_id).then(function(response){
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/notices/"+notice.notice_id).then(function(response){
       $scope.notification_in(true);		
     }); 
 } 
 $scope.notification_in = function(statusx){	
     $scope.the_runner.spinner_notices = true;
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/api/notices").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/api/notices").then(function(response){
 	if(statusx){
 	    $scope.the_runner.notices_count = response.notices.length;			  
         $scope.notices     = response.notices;  
@@ -754,13 +754,13 @@ $scope.notification_in(false);
 /*********************Notices***********************/
 /*********************Mails***********************/ 
 $scope.mail_status = function(mail){	    
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/mails/"+mail.mail_id).then(function(response){
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/mails/"+mail.mail_id).then(function(response){
       $scope.mail_in(true);		
     }); 
 } 
 $scope.mail_in = function(statusx){	
     $scope.the_runner.spinner_mails = true;
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/api/mails").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/api/mails").then(function(response){
 	if(statusx){
 	    $scope.the_runner.mails_count = response.mails.length;			  
         $scope.mails_lite     = response.mails;  
@@ -837,7 +837,7 @@ $scope.read_profile=function(){
 	  payload.append(property,JSON.stringify($scope.the_runner[property]));
     }	
  
-    CRUDAPI.execute('GET',payload,"http://123.231.52.110/asceso/api/users").then(function(response){       	    
+    CRUDAPI.execute('GET',payload,"http://mss.test/api/users").then(function(response){       	    
 	   $scope.set_reads(response);
     });	
  
@@ -876,7 +876,7 @@ if($scope.valid()){
  
  
 	
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/users/"+$scope.the_runner.user_id).then(function(response){       
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/users/"+$scope.the_runner.user_id).then(function(response){       
          
 	   NOTICE.execute('Notification',response.returnResponse);	
 	   $scope.the_runner.spinner = false;
@@ -1214,7 +1214,7 @@ $scope.$watch('item_core.keyword',function(){
 	$scope.liteQ=[];	
     var payload = new FormData();	
 	payload.append('keyword',JSON.stringify($scope.item_core.keyword));	
-    CRUD.execute('POST',payload,"http://123.231.52.110/asceso/search-product").then(function(response){
+    CRUD.execute('POST',payload,"http://mss.test/search-product").then(function(response){
       $scope.liteQ = response;
     });	
 });
@@ -1471,7 +1471,7 @@ $scope.$watch('the_runner.doctor_id',function(){
 $scope.$watch('the_runner.appointment_date',function(){
   if($scope.the_runner.appointment_date != ""){
   $scope.the_runner.appointment_date = moment($scope.the_runner.appointment_date).format('YYYY-MM-DD');
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/time-slots").then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/time-slots").then(function(response){
       $scope.time_slots = response.data;
 	  
     });	   		  
@@ -1482,7 +1482,7 @@ $scope.$watch('the_runner.appointment_date',function(){
 $scope.read_time_slots=function(){
 	
     
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/time-slots").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/time-slots").then(function(response){
       $scope.time_slots = response.slots;
 	  
     });	 
@@ -1517,7 +1517,7 @@ console.log("patient "+$scope.the_runner.patient_id);
 }); 	
 
 $scope.read_doctors=function(){
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/read-doctors").then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/read-doctors").then(function(response){
       $scope.doctors = response.doctors;
     });	 
 }		
@@ -1530,7 +1530,7 @@ $scope.$watch('the_runner.keyword',function(){
 }); 
 	
 $scope.read_patients=function(){
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/patient-search").then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/patient-search").then(function(response){
       $scope.patients = response;
 	  
 	 
@@ -1567,7 +1567,7 @@ $scope.the_runner.age = $scope.calculate_age(new Date(new Date($scope.the_runner
 
  
 $scope.specialization_area=function(){
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/specialization-area").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/specialization-area").then(function(response){
       $scope.areas = response.areas;
     });	 
 }
@@ -1584,7 +1584,7 @@ $scope.save=function(){
     $scope.the_runner.dob = moment($scope.the_runner.dob).format('YYYY-MM-DD');
      			      
  
-	   CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/api/patients").then(function(response){
+	   CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/api/patients").then(function(response){
        NOTICE.execute('Success',response.returnResponse); 
        $scope.flush();
            
@@ -1604,7 +1604,7 @@ $scope.update=function(){
     $scope.the_runner.dob = moment($scope.the_runner.dob).format('YYYY-MM-DD');
      			      
  
-	   CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/patients/"+$scope.the_runner.patient_id).then(function(response){
+	   CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/patients/"+$scope.the_runner.patient_id).then(function(response){
        NOTICE.execute('Success',response.message); 
        $scope.flush();
            
@@ -1625,7 +1625,7 @@ $scope.save_appointment=function(){
     $scope.the_runner.dob = moment($scope.the_runner.dob).format('YYYY-MM-DD');
      			      
  
-	   CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/api/appointments").then(function(response){
+	   CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/api/appointments").then(function(response){
        NOTICE.execute('Success',response.message); 
        $scope.flush();
            
@@ -1799,7 +1799,7 @@ $scope.save=function(){
      
      			      
  
-	   CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/api/productsx").then(function(response){
+	   CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/api/productsx").then(function(response){
        NOTICE.execute('Success',response.message); 
        //$scope.flush();
            
@@ -1821,7 +1821,7 @@ $scope.read_products=function(){
 
     $scope.products=[];
  
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/cast-products?page="+$scope.the_paginate.pageNumber).then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/cast-products?page="+$scope.the_paginate.pageNumber).then(function(response){
       $scope.products     = response.data;
 	  
       $scope.the_paginate.totalPages   = response.last_page;
@@ -1845,20 +1845,20 @@ $scope.read_products=function(){
  
    
  $scope.read_categories=function(){
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/api/categories").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/api/categories").then(function(response){
       $scope.categories = response.categories;
     });	 
 }
 
  $scope.read_brands=function(){
-    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/api/brands").then(function(response){
+    CRUDAPI.execute('GET',$scope.the_runner,"http://mss.test/api/brands").then(function(response){
       $scope.brands = response.brands;
     });	 
 }  
    
  
  $scope.delete_product=function(product){
-    CRUDAPI.execute('DELETE',$scope.the_runner,"http://123.231.52.110/asceso/api/productsx/"+product.product_id).then(function(response){
+    CRUDAPI.execute('DELETE',$scope.the_runner,"http://mss.test/api/productsx/"+product.product_id).then(function(response){
        NOTICE.execute('Success',response.message);
 	   $scope.read_products();   
     });	 
@@ -1887,7 +1887,7 @@ $scope.read_products=function(){
 	 
 	 
 	 
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/productsx/"+$scope.the_runner.product_id).then(function(response){
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/productsx/"+$scope.the_runner.product_id).then(function(response){
 		$('#edit-product').modal('hide');
        NOTICE.execute('Success',response.message);
 	   $scope.read_products();   
@@ -1982,7 +1982,7 @@ $scope.save=function(){
      
      			      
  
-	   CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/api/categories").then(function(response){
+	   CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/api/categories").then(function(response){
        NOTICE.execute('Success',response.message); 
        //$scope.flush();
            
@@ -2004,7 +2004,7 @@ $scope.read_categories=function(){
 
     $scope.categories=[];
  
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/cast-categories?page="+$scope.the_paginate.pageNumber).then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/cast-categories?page="+$scope.the_paginate.pageNumber).then(function(response){
       $scope.categories     = response.data;
 	  
       $scope.the_paginate.totalPages   = response.last_page;
@@ -2030,7 +2030,7 @@ $scope.read_categories=function(){
  
  
  $scope.delete_category=function(category){
-    CRUDAPI.execute('DELETE',$scope.the_runner,"http://123.231.52.110/asceso/api/categories/"+category.category_id).then(function(response){
+    CRUDAPI.execute('DELETE',$scope.the_runner,"http://mss.test/api/categories/"+category.category_id).then(function(response){
        NOTICE.execute('Success',response.message);
 	   $scope.read_categories();   
     });	 
@@ -2054,7 +2054,7 @@ $scope.read_categories=function(){
 	 
 	 
 	 
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/categories/"+$scope.the_runner.category_id).then(function(response){
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/categories/"+$scope.the_runner.category_id).then(function(response){
 		$('#edit-category').modal('hide');
        NOTICE.execute('Success',response.message);
 	   $scope.read_categories();   
@@ -2149,7 +2149,7 @@ $scope.save=function(){
      
      			      
  
-	   CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/api/brands").then(function(response){
+	   CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/api/brands").then(function(response){
        NOTICE.execute('Success',response.message); 
        //$scope.flush();
            
@@ -2171,7 +2171,7 @@ $scope.read_brands=function(){
 
     $scope.brands=[];
  
-    CRUDAPI.execute('POST',$scope.the_runner,"http://123.231.52.110/asceso/cast-brands?page="+$scope.the_paginate.pageNumber).then(function(response){
+    CRUDAPI.execute('POST',$scope.the_runner,"http://mss.test/cast-brands?page="+$scope.the_paginate.pageNumber).then(function(response){
       $scope.brands     = response.data;
 	  
       $scope.the_paginate.totalPages   = response.last_page;
@@ -2197,7 +2197,7 @@ $scope.read_brands=function(){
  
  
  $scope.delete_brand=function(brand){
-    CRUDAPI.execute('DELETE',$scope.the_runner,"http://123.231.52.110/asceso/api/brands/"+brand.brand_id).then(function(response){
+    CRUDAPI.execute('DELETE',$scope.the_runner,"http://mss.test/api/brands/"+brand.brand_id).then(function(response){
        NOTICE.execute('Success',response.message);
 	   $scope.read_brands();   
     });	 
@@ -2221,7 +2221,7 @@ $scope.read_brands=function(){
 	 
 	 
 	 
-    CRUDAPI.execute('PUT',$scope.the_runner,"http://123.231.52.110/asceso/api/brands/"+$scope.the_runner.brand_id).then(function(response){
+    CRUDAPI.execute('PUT',$scope.the_runner,"http://mss.test/api/brands/"+$scope.the_runner.brand_id).then(function(response){
 		$('#edit-brand').modal('hide');
        NOTICE.execute('Success',response.message);
 	   $scope.read_brands();   

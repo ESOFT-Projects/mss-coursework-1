@@ -102,6 +102,66 @@
   animation: bounceright .3s alternate ease infinite;
 }
 
+
+
+
+.btn-close:before,
+.btn-close:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: inherit;
+  padding-bottom: inherit;
+  width: 2.8em;
+  content: "\f00d";
+  font-family: 'FontAwesome', sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  transition: .2s;
+  transform-origin: 50% 60%;
+}
+.btn-close:before {
+  background: rgba(0, 0, 0, 0.1);
+}
+.btn-close:hover {
+  background: #e1a948;
+}
+.btn-close:active,
+.btn-close:focus {
+  background: #e1a948;
+  outline: none;
+}
+.btn-close {
+  background: #FE5F55;
+  display: inline-block;
+  font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  padding: .8em 1.4em;
+  padding-right: 4.7em;
+  background: #eeb24c;
+  border: none;
+  color: white;
+  transition: .2s;
+  min-width: 15em;
+  font-size:13px;
+  text-transform:uppercase;
+  }
+.btn-close:after {
+  content: "\f00d";
+}
+.btn-close:hover:after {
+  -webkit-animation: bounceright .3s alternate ease infinite;
+  animation: bounceright .3s alternate ease infinite;
+}
+
+
+
+
+
+
+
 .btn-in:before,
 .btn-in:after {
   position: absolute;
@@ -310,6 +370,79 @@
   animation: bounceright .3s alternate ease infinite;
 }
 
+
+
+
+
+
+
+
+
+
+.btn-view:before,
+.btn-view:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: inherit;
+  padding-bottom: inherit;
+  width: 2.8em;
+  content: "\00a0";
+  font-family: 'FontAwesome', sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  transition: .2s;
+  transform-origin: 50% 60%;
+}
+.btn-view:before {
+  background: rgba(0, 0, 0, 0.1);
+}
+.btn-view:hover {
+  background: #0079a5;
+}
+.btn-view:active,
+.btn-view:focus {
+  background: #0079a5;
+  outline: none;
+}
+.btn-view {
+  background: #FE5F55;
+  display: inline-block;
+  font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  padding: .8em 1.4em;
+  padding-right: 4.7em;
+  background: #009ED8;
+  border: none;
+  color: white;
+  transition: .2s;
+  min-width: 10em;
+  font-size:10px;
+  text-transform:uppercase;
+  margin-top:-4px;  
+  }
+.btn-view:after {
+  content: "\f06e";
+}
+.btn-view:hover:after {
+  -webkit-animation: bounceright .3s alternate ease infinite;
+  animation: bounceright .3s alternate ease infinite;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn-edit:before,
 .btn-edit:after {
   position: absolute;
@@ -382,11 +515,11 @@
   background: rgba(0, 0, 0, 0.1);
 }
 .btn-print:hover {
-  background: #318ccb;
+  background: #e1a948;
 }
 .btn-print:active,
 .btn-print:focus {
-  background: #318ccb;
+  background: #e1a948;
   outline: none;
 }
 .btn-print {
@@ -397,7 +530,7 @@
   position: relative;
   padding: .8em 1.4em;
   padding-right: 4.7em;
-  background: #3598dc;
+  background: #eeb24c;
   border: none;
   color: white;
   transition: .2s;
@@ -475,7 +608,7 @@
   padding-top: inherit;
   padding-bottom: inherit;
   width: 2.8em;
-  content: "\00a0";
+  content: "\f002";
   font-family: 'FontAwesome', sans-serif;
   font-size: 1.2em;
   text-align: center;
@@ -510,12 +643,68 @@
   text-transform:uppercase;
   }
 .btn-title-search:after {
-  content: "\f1dc";
+  content: "\f002";
 }
 .btn-title-search:hover:after {
   -webkit-animation: bounceright .3s alternate ease infinite;
   animation: bounceright .3s alternate ease infinite;
 }
+
+
+
+
+.btn-title-search-date:before,
+.btn-title-search-date:after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: inherit;
+  padding-bottom: inherit;
+  width: 2.8em;
+  content: "\00a0";
+  font-family: 'FontAwesome', sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  transition: .2s;
+  transform-origin: 50% 60%;
+}
+.btn-title-search-date:before {
+  background: rgba(0, 0, 0, 0.1);
+}
+.btn-title-search-date:hover {
+  background: #149676;
+}
+.btn-title-search-date:active,
+.btn-title-search-date:focus {
+  background: #149676;
+  outline: none;
+}
+.btn-title-search-date {
+  background: #FE5F55;
+  display: inline-block;
+  font-family: "Montserrat", "Trebuchet MS", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  padding: .8em 1.4em;
+  padding-right: 4.7em;
+  background: #149676;
+  border: none;
+  color: white;
+  transition: .2s;
+  width: 100%;
+  font-size:13px;
+  text-transform:uppercase;
+  }
+.btn-title-search-date:after {
+  content: "\f073";
+}
+.btn-title-search-date:hover:after {
+  -webkit-animation: bounceright .3s alternate ease infinite;
+  animation: bounceright .3s alternate ease infinite;
+}
+
+
 
 
 
