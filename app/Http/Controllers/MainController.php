@@ -32,7 +32,7 @@ date_default_timezone_set('Asia/Colombo');
 class MainController extends Controller {
 
     public function __construct(){
-        $this->middleware(['auth:api','cors'])->except('index','login','register','users','read_pages','fetch_privileges','runtime_privileges','profile','appointment','appointment_list','patient_register','invoice','product','product_add','category','category_add','brand','brand_add','report_appointment','report_doctor_payment','report_inventory','patient_manage','patients');
+        $this->middleware(['auth:api','cors'])->except('index','login','register','users','read_pages','fetch_privileges','runtime_privileges','profile','appointment','appointment_list','patient_register','invoice','product','product_add','category','category_add','brand','brand_add','report_appointment','report_doctor_payment','report_inventory','patient_manage','patients', 'report_most_prescribed_products');
 		//new ConfigEnv();
     }
 
@@ -114,7 +114,7 @@ class MainController extends Controller {
 		  return $this->login();
 		}
     }
-	
+
     public function appointment_list()
     {
 
@@ -124,9 +124,9 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
-	
+    }
+
+
 
     public function patient_register()
     {
@@ -138,7 +138,7 @@ class MainController extends Controller {
 		  return $this->login();
 		}
     }
-	
+
     public function product()
     {
 
@@ -148,8 +148,8 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
+    }
+
     public function product_add()
     {
 
@@ -159,8 +159,8 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
+    }
+
     public function category()
     {
 
@@ -170,8 +170,8 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
+    }
+
     public function category_add()
     {
 
@@ -181,8 +181,8 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
+    }
+
     public function brand()
     {
 
@@ -215,8 +215,8 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
- 	
+    }
+
     public function report_doctor_payment()
     {
 
@@ -226,7 +226,7 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
+    }
 
     public function report_inventory()
     {
@@ -238,7 +238,18 @@ class MainController extends Controller {
 		  return $this->login();
 		}
     }
-	
+
+    public function report_most_prescribed_products()
+    {
+
+        if(Auth::check()){
+            $pack = $this->fetch_privileges();
+            return view('report-most-prescribed-products')->with('privileges', $pack['privileges'])->with('privileges_subs', $pack['privileges_subs']);
+        }else{
+            return $this->login();
+        }
+    }
+
     public function patient_manage()
     {
 
@@ -248,9 +259,9 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }	
-	
-	
+    }
+
+
     public function patients()
     {
 
@@ -260,9 +271,9 @@ class MainController extends Controller {
 		}else{
 		  return $this->login();
 		}
-    }		
-	
-	
+    }
+
+
 
 
     public function read_pages(Request $request)
