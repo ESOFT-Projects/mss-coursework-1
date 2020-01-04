@@ -78,22 +78,6 @@ class PatientHistoryController extends Controller
 
     public function update(Request $request)
     {
-		
-	  
-		
-		/*
-        // validate
-        $validator = Validator::make($request, [
-            'patient_id' => 'required',
-            'doctor_id' => 'required',
-        ]);
-
-        if($validator->fails()){
-            return response()->json([
-                'status' => 'validation_error',
-                'errors' => $validator->errors(),
-            ], 419);
-        } */
 
         try{
             // update symptoms, diagnosis, remarks
@@ -111,7 +95,6 @@ class PatientHistoryController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'data' => compact('patient', 'appointment', 'invoice'),
                 'message' => 'Patient history updated successfully',
             ], 201);
 
@@ -140,11 +123,11 @@ class PatientHistoryController extends Controller
                 'prescribable_id' => $request->appointment_id,
                 'prescribable_type' => Prescription::APPOINTMENT,
             ]);
-			
-			
+
+
             foreach ($request->medicine_items as $medicine) {
                 $prescription->medicines()->create([
-                    'sku' => $medicine['sku'],
+                    'title' => $medicine['sku'],
                     'qty' => $medicine['qty']
                 ]);
             }
@@ -160,7 +143,7 @@ class PatientHistoryController extends Controller
         if ($request->has('medicine_reports')) {
             foreach ($request->medicine_reports as $report) {
                 PatientReport::create([
-                    'name' => $report['report_name'],
+                    'name' => $report['title'],
                     'patient_id' => $request->patient_id,
                     'doctor_id' => auth()->id(),
                     'received_at' => now(),
