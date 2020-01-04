@@ -9,17 +9,17 @@
   @include('layouts.title-document')
 
   <!--gritter css-->
-  <link rel="stylesheet" type="text/css" href="http://123.231.52.110/asceso/js/gritter/css/jquery.gritter.css" />   
-  
+  <link rel="stylesheet" type="text/css" href="http://mss.test/js/gritter/css/jquery.gritter.css" />
+
   <!--range picker-->
-  <link rel="stylesheet" href="http://123.231.52.110/asceso/css/rangepicker/daterangepicker.css">  
-  
-  <link href="http://123.231.52.110/asceso/css/style.css" rel="stylesheet">
-  <link href="http://123.231.52.110/asceso/css/style-responsive.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://mss.test/css/rangepicker/daterangepicker.css">
+
+  <link href="http://mss.test/css/style.css" rel="stylesheet">
+  <link href="http://mss.test/css/style-responsive.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
-  <script src="http://123.231.52.110/asceso/js/html5shiv.js"></script>
-  <script src="http://123.231.52.110/asceso/js/respond.min.js"></script>
+  <script src="http://mss.test/js/html5shiv.js"></script>
+  <script src="http://mss.test/js/respond.min.js"></script>
   <![endif]-->
 </head>
 
@@ -40,7 +40,7 @@
         </div>
     </div>
     <!-- left side end-->
-    
+
     <!-- main content start-->
     <div class="main-content" >
 
@@ -69,7 +69,7 @@
         <!-- page start-->
 
         <div class="row">
-           
+
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
@@ -77,7 +77,7 @@
                     </header>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form"  >
- 				
+
                             <div class="form-group">
                                 <label  class="col-lg-3 col-sm-3 control-label">Name</label>
                                 <div class="col-lg-9">
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-							
+
                             <div class="form-group">
                                 <label  class="col-lg-3 col-sm-3 control-label">Email</label>
                                 <div class="col-lg-9">
@@ -121,7 +121,7 @@
                                     </div>
                                 </div>
                             </div>
-							
+
                             <div class="form-group">
                                 <label  class="col-lg-3 col-sm-3 control-label">Password New</label>
                                 <div class="col-lg-9">
@@ -131,7 +131,7 @@
 										<p class="help-block" ng-if="the_validator.error_password_new" >This field is required.</p>
                                     </div>
                                 </div>
-                            </div>							
+                            </div>
 
                             <div class="form-group">
                                 <label  class="col-lg-3 col-sm-3 control-label">Confirm Password</label>
@@ -142,12 +142,12 @@
 										<p class="help-block" ng-if="the_validator.error_password_confirmation" >Passwords confirmation invalid.</p>
                                     </div>
                                 </div>
-                            </div>							
-<div class="alert alert-info alert-dismissable" style="text-align:center;" ng-show=" the_runner.return_response.length > 0 " ><a class="close"  area-label="close" ng-click=" the_runner.return_response='' " ><i class="fa fa-times"></i></a><i class="fa fa-info-circle"></i>&nbsp;&nbsp;@{{the_runner.return_response}}</div>                            
+                            </div>
+<div class="alert alert-info alert-dismissable" style="text-align:center;" ng-show=" the_runner.return_response.length > 0 " ><a class="close"  area-label="close" ng-click=" the_runner.return_response='' " ><i class="fa fa-times"></i></a><i class="fa fa-info-circle"></i>&nbsp;&nbsp;@{{the_runner.return_response}}</div>
                             <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-9">
                                     <a ng-click="save()" class="btn btn-primary">Update</a>
-									<i ng-if="the_runner.spinner" style="color:#374152;" class="fa fa-spinner fa-spin fa-2x"></i> 
+									<i ng-if="the_runner.spinner" style="color:#374152;" class="fa fa-spinner fa-spin fa-2x"></i>
                                 </div>
                             </div>
                         </form>
@@ -155,7 +155,7 @@
                 </section>
             </div>
         </div>
-     
+
         <!-- page end-->
         </section>
         <!--body wrapper end-->
@@ -169,36 +169,36 @@
     <!-- main content end-->
 </section>
 
-<script type="text/javascript" src="http://123.231.52.110/asceso/js/angular.min.js"></script>
+<script type="text/javascript" src="http://mss.test/js/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js?key=AIzaSyBBGwrHXcGj52OZQiggdrefxVDnj-Jm2Qc"></script>
 	<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGwrHXcGj52OZQiggdrefxVDnj-Jm2Qc'></script>
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="http://123.231.52.110/asceso/js/jquery-1.10.2.min.js"></script>
-<script src="http://123.231.52.110/asceso/js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="http://123.231.52.110/asceso/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="http://123.231.52.110/asceso/js/bootstrap.min.js"></script>
-<script src="http://123.231.52.110/asceso/js/modernizr.min.js"></script>
-<script src="http://123.231.52.110/asceso/js/jquery.nicescroll.js"></script>
+<script src="http://mss.test/js/jquery-1.10.2.min.js"></script>
+<script src="http://mss.test/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="http://mss.test/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="http://mss.test/js/bootstrap.min.js"></script>
+<script src="http://mss.test/js/modernizr.min.js"></script>
+<script src="http://mss.test/js/jquery.nicescroll.js"></script>
 
 <!--gritter script-->
-<script type="text/javascript" src="http://123.231.52.110/asceso/js/gritter/js/jquery.gritter.js"></script>
+<script type="text/javascript" src="http://mss.test/js/gritter/js/jquery.gritter.js"></script>
 
-<!--calendar--> 
-<script src="http://123.231.52.110/asceso/js/ui-bootstrap-tpls.min.js"></script> 
+<!--calendar-->
+<script src="http://mss.test/js/ui-bootstrap-tpls.min.js"></script>
 
-<!--moment--> 
-<script src="http://123.231.52.110/asceso/js/moment.js"></script> 
+<!--moment-->
+<script src="http://mss.test/js/moment.js"></script>
 
 <!--range picker-->
-<script src="http://123.231.52.110/asceso/css/rangepicker/angular-messages.js"></script>
-<script src="http://123.231.52.110/asceso/css/rangepicker/daterangepicker.js"></script>	
-<script src="http://123.231.52.110/asceso/css/rangepicker/angular-daterangepicker.js"></script>
+<script src="http://mss.test/css/rangepicker/angular-messages.js"></script>
+<script src="http://mss.test/css/rangepicker/daterangepicker.js"></script>
+<script src="http://mss.test/css/rangepicker/angular-daterangepicker.js"></script>
 
 <!--common scripts for all pages-->
-<script src="http://123.231.52.110/asceso/js/scripts.js"></script>
+<script src="http://mss.test/js/scripts.js"></script>
 
-<script type="text/javascript" src="http://123.231.52.110/asceso/js/app_home.js"></script>
+<script type="text/javascript" src="http://mss.test/js/app_home.js"></script>
 
 </body>
 </html>

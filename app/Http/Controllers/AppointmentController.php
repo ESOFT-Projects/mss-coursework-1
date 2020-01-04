@@ -39,45 +39,38 @@ class AppointmentController extends Controller
     {
 		 $data = array();
 		 $data['slots'] = TimeSlot::orderBy('id','ASC')->get();
-         echo json_encode($data);
+         echo json_encode($data);		 
     }
-
+	
 
    public function cast_appointments(Request $request){
+ 
+  
+	   	
+	    $appointments = Appointment::paginate(5);	
+	  
 
-
-
-	    $appointments = Appointment::paginate(5);
-
-
-
+  
         foreach($appointments as $appointment){
-
+			
 		  $doctor = Doctor::where('doctor_id',$appointment->doctor_id)->first();
-		  $employee = Employee::where('employee_id',$doctor->employee_id)->first();
-
+		  $employee = Employee::where('employee_id',$doctor->employee_id)->first();		  
+		  
 		  $timeslot = TimeSlot::where('id',$appointment->time_slot_id)->first();
 		  $appointment->timeslot_start = $timeslot->start_at;
 		  $appointment->timeslot_end = $timeslot->end_at;
-
+		  
 		  $appointment->doctor_name =  $employee->first_name.' '.$employee->last_name;
 		  $patient = Patient::where('patient_id',$appointment->patient_id)->first();
-		  $appointment->patient =  $patient;
-
+		  $appointment->patient =  $patient;		  
+		  
 		}
-
-
-
-	    echo json_encode($appointments);
-
-    }
-        $this->middleware(['auth:api','cors'])->except('index','show','availability');
-    }
-
-    public function availability(Request $request)
-    {
-		 echo 'in';
-    }
+ 
+ 
+		
+	    echo json_encode($appointments); 
+  
+    }	
 
     /**
      * Display a listing of the resource.
@@ -107,18 +100,13 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-
-
+		 
+		 
         try{
             // save patient first
             $patient = $this->createAppointmentPatient($request->only([
                 'name', 'nic', 'guardian_nic', 'gender', 'dob', 'contact', 'address'
             ]),$request->age);
-        try{
-            // save patient first
-            $patient = $this->createAppointmentPatient($request->only([
-                'name', 'nic', 'guardian_nic', 'gender', 'dob', 'contact', 'address',
-            ]));
 
             /// Place appointment
             $appointment = $this->createAppointment($request->only([
@@ -126,7 +114,7 @@ class AppointmentController extends Controller
             ]), $patient);
 
             // create invoice
-            $invoice = $this->createInvoice($appointment);
+            $invoice = $this->createInvoice($appointment);  
 
             return response()->json([
                 'status' => 'success',
@@ -141,7 +129,7 @@ class AppointmentController extends Controller
                 'errors' => [
                     $e->getMessage(),
                 ]
-            ], 500);
+            ], 500); 
         }
 
     }
@@ -193,13 +181,13 @@ class AppointmentController extends Controller
      * @param $data
      * @return mixed
      */
-    private function createAppointmentPatient($data)
+    private function createAppointmentPatient($data,$age)
     {
         $patientData = Arr::only($data, [
             'name', 'nic', 'gender', 'dob', 'contact', 'address',
         ]);
 
-        if ( ! $patientData['nic']) {
+        if (  $age < 18 ) {
             $patientData['nic'] = $data['guardian_nic'];
         }
 
@@ -241,7 +229,7 @@ class AppointmentController extends Controller
 
         return $appointment->invoice()->create([
             'total' => ($totalDoctorCharge + $totalHospitalCharge) * 100,
-        ]);
+        ]); 
     }
 
 
