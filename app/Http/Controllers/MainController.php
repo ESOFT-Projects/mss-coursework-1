@@ -211,7 +211,7 @@ class MainController extends Controller {
 
 		if(Auth::check()){
           $pack = $this->fetch_privileges();
-          return view('report')->with('privileges', $pack['privileges'])->with('privileges_subs', $pack['privileges_subs']);
+          return view('report-appointments')->with('privileges', $pack['privileges'])->with('privileges_subs', $pack['privileges_subs']);
 		}else{
 		  return $this->login();
 		}

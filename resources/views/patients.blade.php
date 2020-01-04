@@ -29,6 +29,7 @@
     width: 90%;
 
 
+
 }
 .mail-nav {
 
@@ -41,10 +42,6 @@
 </head>
 
 <body class="sticky-header" ng-controller="PatientManageController" >
-
-
-
-
 
 
 <section>
@@ -62,6 +59,7 @@
         </div>
     </div>
     <!-- left side end-->
+
 
     <!-- main content start-->
     <div class="main-content" >
@@ -92,13 +90,11 @@
 
         <div class="row">
 
+
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
 					Patients
-
-
-
 
 							<div class="pull-right" style="margin-top:-5px; ">
                             <form class="form-inline" role="form" style="display:inline;margin-right:0px;">
@@ -117,6 +113,10 @@
 
                                 </div>
 
+
+
+                              </form>
+                            </div>
 
 
                               </form>
@@ -184,7 +184,7 @@
     <!-- main content end-->
 </section>
 
-<script type="text/javascript" src="http://mss.test/js/angular.min.js"></script>
+<script type="text/javascript" src="http://123.231.52.110/asceso/js/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js?key=AIzaSyBBGwrHXcGj52OZQiggdrefxVDnj-Jm2Qc"></script>
 	<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBBGwrHXcGj52OZQiggdrefxVDnj-Jm2Qc'></script>

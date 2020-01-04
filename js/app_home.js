@@ -819,7 +819,7 @@ $scope.the_runner = { name:'',
 $scope.the_validator = {
                        regex_contact:/^(\+?(\d{1}|\d{2}|\d{3})[- ]?)?\d{3}[- ]?\d{3}[- ]?\d{4}$/,
                        regex_email:/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-					   error_name:false,
+					   error_name:true,
 					   error_email:true,
 					   error_address:true,
 					   error_password:true,
@@ -2564,7 +2564,179 @@ $scope.read_appointments();
 
 
 
+app.controller('ReportTestController', function($scope,$http,$filter,CRUD,CRUDAPI,CRUDAPIPUT,UP,NOTICE,$interval) {
 
+$scope.the_runner = { title:'',
+                      patient_name:'',
+                      patient_nic:'',
+                      patient_address:'',
+                      patient_contact:'',
+                      patient_id:'',
+                      doctor_id:'',
+                      keyword:'',
+					  spinner:false,
+					  medicine_items : [],
+					  medicine_reports : [],
+                      symptoms:'',
+                      diagnosis:'',
+                      remarks:'',
+                      prescription:'',
+                      appointment_id:''
+
+                     };
+
+
+
+
+
+$scope.appointments = [];
+
+
+$scope.$watch('the_runner.keyword',function(){
+	$scope.read_appointments();
+});
+
+
+$scope.export_pdf=function(){
+
+
+
+
+
+    $http({
+        url: 'http://123.231.52.110/asceso/export-report-appointment-specialization-area',
+        method: 'GET',
+        data: $scope.the_runner,
+        responseType: 'arraybuffer'
+    }).success(function (data) {
+        var linkElement = document.createElement('a');
+        try {
+            var blob = new Blob([data], { type: 'application/pdf' });
+            var url = window.URL.createObjectURL(blob);
+            linkElement.setAttribute('href', url);
+            linkElement.setAttribute("download", "report.pdf");
+            var clickEvent = new MouseEvent("click", {
+                "view": window,
+                "bubbles": true,
+                "cancelable": false
+            });
+            linkElement.dispatchEvent(clickEvent);
+        } catch (ex) {
+            console.log(ex);
+        }
+    }).error(function (data) {
+        console.log(data);
+    });
+
+}
+
+
+
+$scope.read_appointments=function(){
+
+    $scope.appointments=[];
+
+    CRUDAPI.execute('GET',$scope.the_runner,"http://123.231.52.110/asceso/report-appointment-specialization-area").then(function(response){
+      $scope.appointments     = response.data;
+
+
+
+
+
+
+
+	  var data = [];
+	  var data_active = [];
+	  var data_cancelled = [];
+	  for(var i=0;i<$scope.appointments.length;i++){
+
+        data[i] = $scope.appointments[i].area;
+
+
+        data_active[i] = $scope.appointments[i].active_count;
+        data_cancelled[i] = $scope.appointments[i].cancelled_count;
+
+
+
+
+
+
+
+	  }
+
+
+	 var data2 =
+	[{
+                name: 'Active Count',
+                data: data_active
+            }, {
+                name: 'Cancelled Count',
+                data: data_cancelled
+            }]
+
+	  $scope.draw(data,data2);
+
+
+
+    });
+
+
+
+
+
+}
+
+
+
+
+
+$scope.draw = function(data,data2){
+
+  Highcharts.chart('containerx', {
+      chart: {
+            type: 'column'
+        },
+      title: {
+        text: "Appointments List"
+      },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total'
+                }
+            },
+           xAxis: {
+                categories: data
+            },
+
+tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: data2
+
+
+
+    });
+
+}
+
+
+
+
+$scope.read_appointments();
+
+});
 
 
 
