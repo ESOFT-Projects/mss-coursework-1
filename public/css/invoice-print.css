@@ -1,0 +1,326 @@
+@import url(/fonts/fonts-googleapis.css);
+@media print {
+	
+*{
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color-adjust: exact;
+  font-family:"Roboto Condensed","Helvetica Neue",Helvetica,Arial,sans-serif;
+  box-sizing: border-box;
+}
+	  
+
+/****************INVOICE***************/	  
+	  
+.invoice {
+  color: #222;
+  padding: 3rem 2rem 4rem 3rem;
+  width: 800px;
+  margin: 3rem auto;
+  position: relative;
+}
+.invoice h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+.invoice h3 {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin: 0 0 1rem 0;
+  color: #000000;
+}
+
+.invoice-id {
+  color: #000000;
+  margin: 0 0 2rem 0;
+}
+
+.invoice-logo {
+  position: absolute;
+  top: 3.3rem;
+  right: 3rem;
+  width: 120px;
+}
+
+.invoice-grid {
+  margin: 0 0 2rem 0;
+}
+.invoice-grid > div {
+  padding-right: 1rem;
+}
+.invoice-grid pre {
+  margin: 0;
+  font-family: inherit;
+}
+
+.invoice-module {
+  padding: 1rem;
+  min-height: 100px;
+}
+
+.amount-due-amount, .due-date-date {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.grid [class^="grid-"] {
+  float: left;
+}
+.grid .grid-1-2 {
+  width: 50%;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/****************INVOICE***************/
+
+/****************INVOICE TABLE***************/
+
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  padding-top: .5em;
+}
+
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+
+.rwd-table td:before {
+  display: none;
+}
+
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+
+.rwd-table th, .rwd-table td {
+  display: table-cell;
+  padding: .25em .5em;
+}
+
+.rwd-table th:first-child, .rwd-table td:first-child {
+  padding-left: 0;
+}
+
+.rwd-table th:last-child, .rwd-table td:last-child {
+  padding-right: 0;
+}
+
+.rwd-table {
+  background: #19b992;
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #46637f;
+}
+
+.rwd-table th, .rwd-table td {
+  margin: .5em 1em;
+}
+
+.rwd-table th, .rwd-table td {
+  padding: 1em !important;
+}
+
+.rwd-table th, .rwd-table td:before {
+  color: #dd5;
+}
+
+/****************INVOICE TABLE***************/
+	  
+}
+
+@media screen {
+
+*{
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color-adjust: exact;
+  font-family:"Roboto Condensed","Helvetica Neue",Helvetica,Arial,sans-serif;
+  box-sizing: border-box;
+}
+
+/****************INVOICE***************/	  
+	  
+.invoice {
+  color: #222;
+  padding: 3rem 2rem 4rem 3rem;
+  width: 800px;
+  margin: 3rem auto;
+  position: relative;
+}
+.invoice h1 {
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+.invoice h3 {
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin: 0 0 1rem 0;
+  color: #000000;
+}
+
+.invoice-id {
+  color: #000000;
+  margin: 0 0 2rem 0;
+}
+
+.invoice-logo {
+  position: absolute;
+  top: 3.3rem;
+  right: 3rem;
+  width: 120px;
+}
+
+.invoice-grid {
+  margin: 0 0 2rem 0;
+}
+.invoice-grid > div {
+  padding-right: 1rem;
+}
+.invoice-grid pre {
+  margin: 0;
+  font-family: inherit;
+}
+
+.invoice-module {
+  padding: 1rem;
+  min-height: 100px;
+}
+
+.amount-due-amount, .due-date-date {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.grid [class^="grid-"] {
+  float: left;
+}
+.grid .grid-1-2 {
+  width: 50%;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/****************INVOICE***************/
+
+/****************INVOICE TABLE***************/
+
+.rwd-table {
+  margin: 1em 0;
+  min-width: 300px;
+}
+
+.rwd-table tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.rwd-table th {
+  display: none;
+}
+
+.rwd-table td {
+  display: block;
+}
+
+.rwd-table td:first-child {
+  padding-top: .5em;
+}
+
+.rwd-table td:last-child {
+  padding-bottom: .5em;
+}
+
+.rwd-table td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 6.5em;
+  display: inline-block;
+}
+
+.rwd-table td:before {
+  display: none;
+}
+
+.rwd-table th, .rwd-table td {
+  text-align: left;
+}
+
+.rwd-table th, .rwd-table td {
+  display: table-cell;
+  padding: .25em .5em;
+}
+
+.rwd-table th:first-child, .rwd-table td:first-child {
+  padding-left: 0;
+}
+
+.rwd-table th:last-child, .rwd-table td:last-child {
+  padding-right: 0;
+}
+
+.rwd-table {
+  background: #19b992;
+  border-radius: 0px;
+  overflow: hidden;
+}
+
+.rwd-table tr {
+  border-color: #46637f;
+}
+
+.rwd-table th, .rwd-table td {
+  margin: .5em 1em;
+}
+
+.rwd-table th, .rwd-table td {
+  padding: 1em !important;
+}
+
+.rwd-table th, .rwd-table td:before {
+  color: #dd5;
+}
+
+/****************INVOICE TABLE***************/
+	
+
+}
