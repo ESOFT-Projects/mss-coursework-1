@@ -81,6 +81,15 @@
 
             <div class="row">
 
+                <div class="col-md-12">
+                    <h5>Most prescribed medicines in this week</h5>
+{{--                    <p>Starting from<span>{{mpp_start_date}}</span></p>--}}
+                    <div class="panel">
+                        <header class="panel-heading">Top 5 products</header>
+                        <div id="mpp-pie-chart-container" style="height: 400px;width: 100%"></div>
+                    </div>
+                </div>
+
                 <div class="col-lg-12">
 
                     <section class="panel">
