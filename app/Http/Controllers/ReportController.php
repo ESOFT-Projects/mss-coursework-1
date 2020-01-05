@@ -60,11 +60,36 @@ class ReportController extends Controller
 
     public function mostPrescribedProductsOfThisWeek()
     {
-        $products = $this->getMostPrescribedProductsData();
+        $from = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $to = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $products = $this->getMostPrescribedProductsData($from, $to);
+
+//        $lastWeekFirstDay = Carbon::now( )->startOfWeek()->subWeek();
+//        $from = $lastWeekFirstDay->startOfWeek()->format('Y-m-d');
+//        $to = $lastWeekFirstDay->endOfWeek()->format('Y-m-d');
+//
+//        $lastWeekProducts = $this->getMostPrescribedProductsData($from, $to);
+
+        $topTenProducts = $products->take(10);
+        $topTenProducts = $topTenProducts->map(function($item){
+           $item = $item->only(['title', 'prescriptions_count']);
+           $item['name'] = $item['title'];
+           $item['y'] = $item['prescriptions_count'];
+
+           unset($item['title'], $item['prescriptions_count']);
+
+           return $item;
+        });
 
         return response()->json([
             'status' => 'success',
-            'data' => $products,
+            'data' => [
+                'start_date' => $from,
+                'end_date' => $to,
+                'products' => $products,
+//                'products_in_last_week' => $lastWeekProducts,
+                'top_ten_products' => $topTenProducts,
+            ],
         ], 200);
     }
 
@@ -95,7 +120,10 @@ class ReportController extends Controller
     }
 
     public function export_report_most_prescribed_products_in_last_week(Request $request){
-        $reportData = $this->getMostPrescribedProductsData();
+
+        $from = Carbon::now()->startOfWeek()->format('Y-m-d');
+        $to = Carbon::now()->endOfWeek()->format('Y-m-d');
+        $reportData = $this->getMostPrescribedProductsData($from, $to);
 
         $pdf = PDF::loadView('pdf-report-most-prescribed-products', compact('reportData'));
         return $pdf->download("report-most-prescribed-products.pdf");
@@ -157,13 +185,15 @@ class ReportController extends Controller
         return Product::whereRaw('units <= reorder_level')->get();
     }
 
-    private function getMostPrescribedProductsData()
+    private function getMostPrescribedProductsData($startDate=null, $endDate=null)
     {
-        return Product::withCount(['prescriptions' => function($query){
-                            $startDate = Carbon::now()->startOfWeek()->format('Y-m-d');
-                            $endDate = Carbon::now()->endOfWeek()->format('Y-m-d');
-                            $query->whereRaw("DATE(created_at) >= '$startDate' ");
-                            $query->whereRaw("DATE(created_at) <= '$endDate' ");
+        return Product::withCount(['prescriptions' => function($query) use($startDate, $endDate){
+                            if($startDate){
+                                $query->whereRaw("DATE(created_at) >= '$startDate' ");
+                            }
+                            if($endDate){
+                                $query->whereRaw("DATE(created_at) <= '$endDate' ");
+                            }
                         }])
                         ->orderBy('prescriptions_count', 'DESC')
                         ->get();

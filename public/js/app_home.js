@@ -2825,11 +2825,51 @@ app.controller('ReportTestController', function($scope,$http,$filter,CRUD,CRUDAP
         });
     }
 
-    // Report - Most prescribed products
+// Report - Most prescribed products
     $scope.read_most_prescribed_products = function () {
         $scope.mostPrescribedProducts = [];
+        $scope.mpp_start_date = '';
+        $scope.mpp_end_date = '';
         CRUDAPI.execute('GET', $scope.the_runner, "http://mss.test/report-most-prescribed-products").then(function (response) {
-            $scope.mostPrescribedProducts = response.data;
+            $scope.mostPrescribedProducts = response.data.products;
+            $scope.drawMostPrescribedProductsPieChart(response.data.top_ten_products);
+
+            $scope.mpp_start_date = response.start_date;
+            $scope.mpp_end_date = response.end_date;
+
+        });
+
+    }
+
+    $scope.drawMostPrescribedProductsPieChart = function(data){
+        Highcharts.chart('mpp-pie-chart-container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Top 10 products'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: data,
+            }]
         });
     }
 
