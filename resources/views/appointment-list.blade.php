@@ -393,7 +393,7 @@
                 <td style="text-align:center;" >@{{appointment.date}}</td>
                 <td style="text-align:center;" >@{{appointment.patient.name}}</td>
                 <td style="text-align:center;" >@{{appointment.doctor_name}}</td>
-                <td style="text-align:center;" >@{{appointment.timeslot_start}} @{{appointment.timeslot_end}}</td>
+                <td style="text-align:center;" >@{{appointment.timeslot_start}} - @{{appointment.timeslot_end}}</td>
 
 
 

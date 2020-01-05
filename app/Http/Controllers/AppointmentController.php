@@ -39,38 +39,53 @@ class AppointmentController extends Controller
     {
 		 $data = array();
 		 $data['slots'] = TimeSlot::orderBy('id','ASC')->get();
-         echo json_encode($data);		 
+         echo json_encode($data);
     }
-	
+
 
    public function cast_appointments(Request $request){
- 
-  
-	   	
-	    $appointments = Appointment::paginate(5);	
-	  
 
-  
-        foreach($appointments as $appointment){
-			
+
+
+	    $appointments = Appointment::paginate(10);
+
+	    if($request->has('today')){
+            $appointments = Appointment::where('date', now()->format('Y-m-d'))->paginate(10);
+        }
+
+
+
+        foreach($appointments as $index => $appointment){
+
 		  $doctor = Doctor::where('doctor_id',$appointment->doctor_id)->first();
-		  $employee = Employee::where('employee_id',$doctor->employee_id)->first();		  
-		  
+		  $employee = Employee::where('employee_id',$doctor->employee_id)->first();
+
 		  $timeslot = TimeSlot::where('id',$appointment->time_slot_id)->first();
 		  $appointment->timeslot_start = $timeslot->start_at;
 		  $appointment->timeslot_end = $timeslot->end_at;
-		  
+
 		  $appointment->doctor_name =  $employee->first_name.' '.$employee->last_name;
-		  $patient = Patient::where('patient_id',$appointment->patient_id)->first();
-		  $appointment->patient =  $patient;		  
-		  
+		  $patient = Patient::with(['history' => function($query){
+                                  $today = now()->format('Y-m-d');
+                                  $query->whereRaw("DATE(created_at) = '$today'");
+                                  $query->first();
+                              }])
+                              ->where('patient_id', $appointment->patient_id)
+                              ->first();
+
+		  if(count($patient->history) > 0){
+              unset($appointments[$index]);
+          }
+
+		  $appointment->patient =  $patient;
+
 		}
- 
- 
-		
-	    echo json_encode($appointments); 
-  
-    }	
+
+
+
+	    echo json_encode($appointments);
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -100,8 +115,8 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-		 
-		 
+
+
         try{
             // save patient first
             $patient = $this->createAppointmentPatient($request->only([
@@ -114,7 +129,7 @@ class AppointmentController extends Controller
             ]), $patient);
 
             // create invoice
-            $invoice = $this->createInvoice($appointment);  
+            $invoice = $this->createInvoice($appointment);
 
             return response()->json([
                 'status' => 'success',
@@ -129,7 +144,7 @@ class AppointmentController extends Controller
                 'errors' => [
                     $e->getMessage(),
                 ]
-            ], 500); 
+            ], 500);
         }
 
     }
@@ -229,7 +244,7 @@ class AppointmentController extends Controller
 
         return $appointment->invoice()->create([
             'total' => ($totalDoctorCharge + $totalHospitalCharge) * 100,
-        ]); 
+        ]);
     }
 
 
